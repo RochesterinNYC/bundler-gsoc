@@ -3,8 +3,8 @@ require 'octokit'
 require 'json'
 
 @tracker_api_key = ENV["PIVOTAL_TRACKER_API_KEY"]
-@project_id = ENV["BUNDLER_PROJECT_ID"]
-@requester_id = ENV["BUNDLER_REQUESTER_ID"]
+@project_id = ENV["BUNDLER_PROJECT_ID"].to_i
+@requester_id = ENV["BUNDLER_REQUESTER_ID"].to_i
 
 def get_all_stories
   payload = {
