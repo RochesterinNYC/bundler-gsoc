@@ -22,7 +22,7 @@ def get_all_stories
     http.request(request)
   end
 
-  raise response.message if response.code != '200'
+  raise (response.message + response.body) if response.code != '200'
   
   puts "Got all stories" 
 
@@ -41,7 +41,7 @@ def delete_all_stories(story_ids)
       http.request(request)
     end
 
-    raise response.message if response.code != '204'
+    raise (response.message + response.body) if response.code != '204'
   end
   
   puts "Deleted all stories" 
@@ -68,7 +68,7 @@ def create_story(title, description, labels = [])
     http.request(request)
   end
 
-  raise response.message if response.code != '200'
+  raise (response.body + response.message) if response.code != '200'
   
   puts "Created story for #{title}" 
 
