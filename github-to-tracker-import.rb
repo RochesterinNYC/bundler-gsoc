@@ -95,17 +95,21 @@ open_issues_prs = Octokit.list_issues(repo_identifier, state: 'open')
 open_issues = open_issues_prs.select{|issue| !issue.pull_request?}
 open_prs = open_issues_prs.select{|issue| issue.pull_request?}
 
+# Query tracker project for stories and create list of html_urls that have been handled already
+github_html_urls = all_stories.map{|story| /.*(https:\/\/github.com\/[\w]+\/[\w]+\/(issues|pulls)\/4059).*/.match(story['description']) }
+
 #Create story for each issue or pr not already in the tracker story
 open_issues.each do |issue|
   story_title = "Issue: #{issue.title}"
   story_description = "#{issue.html_url}"
   story_labels = issue.labels.map{|label| label.name}
-  create_story(story_title, story_description, story_labels + ['issue'])
+  create_story(story_title, story_description, story_labels + ['issue']) unless github_html_urls.include? issue.html_url
 end
 
 open_prs.each do |pr|
   story_title = "PR: #{pr.title}"
   story_description = "#{pr.html_url}"
   story_labels = pr.labels.map{|label| label.name}
-  create_story(story_title, story_description, story_labels + ['pull-request'])
+  create_story(story_title, story_description, story_labels + ['pull-request']) unless github_html_urls.include? pr.html_url
+
 end
