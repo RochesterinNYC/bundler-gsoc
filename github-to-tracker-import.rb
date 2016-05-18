@@ -6,7 +6,7 @@ require 'json'
 @project_id = ENV["BUNDLER_PROJECT_ID"]
 @requester_id = ENV["BUNDLER_REQUESTER_ID"]
 
-def all_story_ids
+def get_all_stories
   payload = {
     limit: 1000
   }.to_json
@@ -26,7 +26,7 @@ def all_story_ids
   
   puts "Got all stories" 
 
-  JSON.parse(response.body).map{|story| story['id']}
+  JSON.parse(response.body)
 end
 
 def delete_all_stories(story_ids)
@@ -80,7 +80,11 @@ Octokit.configure do |c|
   c.auto_paginate = true
 end
 
-delete_all_stories(all_story_ids)
+all_stories = get_all_stories
+if ENV["REFILL_TRACKER_BOARD"]
+  all_story_ids = all_stories.map{|story| story['id']} 
+  delete_all_stories(all_story_ids)
+end
 
 # Bundler
 # Get all open issues
@@ -91,7 +95,7 @@ open_issues_prs = Octokit.list_issues(repo_identifier, state: 'open')
 open_issues = open_issues_prs.select{|issue| !issue.pull_request?}
 open_prs = open_issues_prs.select{|issue| issue.pull_request?}
 
-#Create story for each 
+#Create story for each issue or pr not already in the tracker story
 open_issues.each do |issue|
   story_title = "Issue: #{issue.title}"
   story_description = "#{issue.html_url}"
