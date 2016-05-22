@@ -2,7 +2,7 @@
 
 ### Process Responsiblities
 
-- Daily standup/check-in at pre-defined time regarding what was done, what will be worked on, blockers.
+- Daily standup/check-in regarding what was done the day before, what will be worked on the current day, blockers, etc. This will be done via submitting issues in this repo. Please title the issues (`<Name> - <Date MM/DD/YYYY) - Standup Notes`
 - Weekly retro at a pre-defined time.
 
 ### Coding Responsibilities
