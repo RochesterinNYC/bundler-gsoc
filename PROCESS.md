@@ -1,9 +1,17 @@
-# Bundler Google Summer of Code - Maintain Bundler
+# Bundler GSoC - Maintain Bundler
 
-### Responsiblities
+### Process Responsiblities
 
 - Daily standup/check-in at pre-defined time regarding what was done, what will be worked on, blockers.
 - Weekly retro at a pre-defined time.
+
+### Coding Responsibilities
+
+- Implement at least 4 bug/issue fixes every week and 1 feature request every 2 weeks.    [Tracker Board](https://www.pivotaltracker.com/n/projects/1582315)
+- Assign yourself to stories in the tracker board. Finished status is when you are done with the coding for the issue or pull request. Delivered is when the pull request has been made and submitted. I will accept them on successful merge into the Bundler or other relevant repo.
+
+### Maintenance Responsibilities
+
 - Improve quality of issues/bugs: 
   - Ensure that issues have at least baseline enough `Gemfile`/`Gemfile.lock`, Bundler configuration, Ruby, Rubygems, 
     and system info. 
